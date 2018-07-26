@@ -1,0 +1,67 @@
+[% USE KohaDates %]
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha: IP Whitelist Plugin: Configuration</title>
+[% INCLUDE 'doc-head-close.inc' %]
+<script src="https://cdn.rawgit.com/cotenoni/jquery-linedtextarea/e431cdbe/jquery-linedtextarea.js"></script>
+<link rel="stylesheet" href="https://cdn.rawgit.com/cotenoni/jquery-linedtextarea/e431cdbe/jquery-linedtextarea.css"></link>
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; IP Whitelist &rsaquo; Configuration</div>
+
+<div id="doc3">
+    <h3>Koha: IP Whitelist Plugin: Configuration</h3>
+
+    <form method="post">
+        <input type="hidden" name="class" value="[% CLASS %]"/>
+        <input type="hidden" name="method" value="[% METHOD %]"/>
+
+        <div class="form-group">
+            <label for="ip_whitelist">IP Whitelist</label>
+            <textarea name="ip_whitelist" id="ip_whitelist" cols="100" rows="30" pattern="([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?" title="Six or more characters">[% ip_whitelist %]</textarea>
+        </div>
+
+        <input type="hidden" name="save" value="1" />
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+<script>
+$("#ip_whitelist").linedtextarea();
+$('#ip_whitelist').keyup(validateTextarea);
+
+function validateTextarea() {
+    var errorMsg = "Invalid format on line ";
+    var textarea = this;
+    var pattern = new RegExp('^' + $(textarea).attr('pattern') + '$');
+    let error_count = 0;
+    // check each line of text
+    $.each($(this).val().split("\n"), function ( index ) {
+        // check if the line matches the pattern
+        var hasError = !this.match(pattern);
+
+        if ( hasError ) {
+            error_count++;
+            const line = index + 1;
+            errorMsg += line;
+        }
+
+        if (typeof textarea.setCustomValidity === 'function') {
+            textarea.setCustomValidity(hasError ? errorMsg : '');
+        } else {
+            // Not supported by the browser, fallback to manual error display...
+            $(textarea).toggleClass('error', !!hasError);
+            $(textarea).toggleClass('ok', !hasError);
+            if (hasError) {
+                $(textarea).attr('title', errorMsg);
+            } else {
+                $(textarea).removeAttr('title');
+            }
+        }
+        return !hasError;
+    });
+}
+</script>
+
+[% INCLUDE 'intranet-bottom.inc' %]
