@@ -65,7 +65,8 @@ sub configure {
 
         ## Grab the values we already have for our settings, if any exist
         $template->param(
-            ip_whitelist => $self->retrieve_data('ip_whitelist'),
+            ip_whitelist_opac => $self->retrieve_data('ip_whitelist_opac'),
+            ip_whitelist_staff => $self->retrieve_data('ip_whitelist_staff'),
         );
 
         $self->output_html( $template->output() );
@@ -73,11 +74,29 @@ sub configure {
     else {
         $self->store_data(
             {
-                ip_whitelist => $cgi->param('ip_whitelist'),
+                ip_whitelist_opac => $cgi->param('ip_whitelist_opac'),
+                ip_whitelist_staff => $cgi->param('ip_whitelist_staff'),
             }
         );
         $self->go_home();
     }
+}
+
+sub output_format {
+    my ( $self, $params ) = @_;
+
+    my $type = $params->{type};
+    my $format = $params->{format} || 'default';
+    
+    die "Invalid type: $type! Valid types are 'opac' and 'staff'"
+    	unless ( $type eq 'staff' || $type eq 'opac' );
+
+    die "Invalid format: $format!"
+    	unless ( $format eq 'default' );
+
+    my $ip_list = $self->retrieve_data("ip_whitelist_$type");
+
+    return $ip_list;
 }
 
 1;
