@@ -8,7 +8,7 @@ use Getopt::Long;
 use C4::Context;
 use lib C4::Context->config("pluginsdir");
 
-use Koha::Plugin::Com::ByWaterSolutions::IpWhiteList;
+use Koha::Plugin::Com::ByWaterSolutions::SearchTriggers;
 
 my $cgi = new CGI;
 
@@ -23,7 +23,7 @@ GetOptions (
 $type ||= $cgi->param('type');
 $format ||= $cgi->param('format');
 
-my $plugin = Koha::Plugin::Com::ByWaterSolutions::IpWhiteList->new({ cgi => $cgi });
+my $plugin = Koha::Plugin::Com::ByWaterSolutions::SearchTriggers->new({ cgi => $cgi });
 my $output = $plugin->output_format( { type => $type, format => $format } );
 
 print $output;

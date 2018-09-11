@@ -1,0 +1,42 @@
+[% USE KohaDates %]
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha: Search triggers Plugin: Configuration</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Search triggers &rsaquo; Configuration</div>
+
+<div id="doc3">
+    <h3>Koha: Search triggers Plugin: Configuration</h3>
+
+    <form method="post">
+        <input type="hidden" name="class" value="[% CLASS %]"/>
+        <input type="hidden" name="method" value="[% METHOD %]"/>
+
+        <div class="form-group">
+            <label for="search_triggers_opac">Search triggers - OPAC</label>
+            <br/>
+            <textarea name="search_triggers_opac" id="search_triggers_opac" cols="100" rows="30" pattern="([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?" title="Six or more characters">[% search_triggers_opac %]</textarea>
+        </div>
+        <div class="form-group">
+            <label for="search_triggers_staff">Search triggers - Staff</label>
+            <br/>
+            <textarea name="search_triggers_staff" id="search_triggers_staff" cols="100" rows="30" pattern="([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?" title="Six or more characters">[% search_triggers_staff %]</textarea>
+        </div>
+
+        <input type="hidden" name="save" value="1" />
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+<script>
+$("#search_triggers_opac").linedtextarea();
+$('#search_triggers_opac').keyup(validateTextarea);
+$("#search_triggers_staff").linedtextarea();
+$('#search_triggers_staff').keyup(validateTextarea);
+
+</script>
+
+[% INCLUDE 'intranet-bottom.inc' %]

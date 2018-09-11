@@ -1,5 +1,5 @@
 {
-  "name": "koha-plugin-ip-whitelist",
+  "name": "koha-plugin-search-triggers",
   "version": "1.0.2",
   "previous_version": "1.0.1",
   "description": "Koha IP Whitelist",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bywatersolutions/koha-plugin-ip-whitelist.git"
+    "url": "git+https://github.com/bywatersolutions/koha-plugin-search-triggers.git"
   },
   "author": "Kyle M Hall <kyle@bywatersolutions.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/bywatersolutions/koha-plugin-ip-whitelist/issues"
+    "url": "https://github.com/bywatersolutions/koha-plugin-search-triggers/issues"
   },
-  "homepage": "https://github.com/bywatersolutions/koha-plugin-ip-whitelist#readme",
+  "homepage": "https://github.com/bywatersolutions/koha-plugin-search-triggers#readme",
   "dependencies": {
     "datetime": "0.0.3",
     "jsonfile": "^4.0.0",
